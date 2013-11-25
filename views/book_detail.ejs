@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'/>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <h1><%= title %></h1>
+   
+    <div class="detail" >
+      Title: <a href='/<%= item.cat %>/<%= item.id %>'><%= item.title %></a><br>
+      Author: <%= item.author %><br>
+      Edition: <%= item.edition %><br>
+      Condition: <%= item.condition %><br><br>
+
+      Course: <%= course.dept %> <%= course.cnum %><br><br>
+
+      Price: $<%= item.price %><br>
+      Seller: <a href='/profile/<%= item.seller %>'><%= item.seller %></a><br>
+      Contact Count: <%= item.contact_count %><br>
+      Post Date: <%= item.post_date %><br>
+
+      <a href="#contactModal" role="button" class="btn btn-primary btn-lg" data-toggle="modal">Contact Seller</a>
+
+      <!-- Contact Seller Modal -->
+      <div id="contactModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Contact Seller</h4>
+            </div>
+
+            <form id="contactForm" class="form-horizontal">
+              <div class="modal-body">
+                
+                  <div class="form-group">
+                    <textarea type="text" class="form-control" rows="8" placeholder="Type your message here..." required autofocus></textarea>
+                  </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id='sendBtn' type="button" class="btn btn-primary">Send Email</button>
+              </div>
+            </form>
+
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+    </div><!-- detail -->
+    
+    <script type="text/javascript">
+    $("#sendBtn").bind('click', function(event){
+      var msg = $("textarea").val();
+      var item = <%- JSON.stringify(item) %>;
+      console.log("send");
+      $.ajax({
+        type: "POST",
+        url: "/contact",
+        data: {msg: msg, item: item},
+        success: function(){
+          console.log("success");
+          $("#contactForm").html('<div class="alert alert-success">Email sent to seller!</div>');
+        }
+      });
+    });
+
+    </script>
+
+  </body>
+</html>

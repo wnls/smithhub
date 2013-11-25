@@ -31,6 +31,15 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/home', routes.index);
+app.get('/profile/:username', routes.index);
+
+//app.get('/contact', routes.contact);
+app.post('/contact', routes.contact);
+
+app.get('/book/:id', routes.book_detail);
+
+
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

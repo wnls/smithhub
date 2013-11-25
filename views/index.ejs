@@ -6,6 +6,25 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p>Welcome back, <%= loggedIn %></p>
+    <h2>Shortcuts</h2>
+    <h2>Your Watchlist</h2>
+      
+        <% watchlist.forEach(function(item){ %>
+        <div class="item">
+          Title: <a href='/<%= item.cat %>/<%= item.id %>'><%= item.title %></a><br>
+          Author: <%= item.author %><br>
+          Edition: <%= item.edition %><br>
+          Condition: <%= item.condition %><br>
+          Price: $<%= item.price %><br>
+          Seller: <a href='/profile/<%= item.seller %>'><%= item.seller %></a><br>
+          Status: <%= item.status %><br>
+          Post Date: <%= item.post_date %><br>
+        </div>
+        <br>
+        <% })%>
+      
+    <h2>Books You May Like</h2>
+    <h2>What's New?</h2>
   </body>
 </html>
